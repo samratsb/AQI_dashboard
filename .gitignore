@@ -1,0 +1,4 @@
+__pycache__/
+airflow_env/
+secrets.env
+
