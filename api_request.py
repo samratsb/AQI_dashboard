@@ -9,12 +9,25 @@ load_dotenv("secrets.env")
 def fetch_data():
     print("Fetch Data")
     try:
-    
-        URL = os.getenv("API_URL")
 
-        response = requests.get(URL, timeout=10)
+        API_KEY = os.getenv("API_KEY")
+        if not API_KEY:
+            raise ValueError("API_KEY not found in environment")
+
+        params = {
+            "access_key": API_KEY,
+            "query": "New Delhi"
+        }
+
+        url = "http://api.weatherstack.com/current"
+        
+        response = requests.get(url, params=params, timeout=100)
+        
+        # if response.status_code == 429:
+        #     raise Exception("Rate limit exceeded. Please wait before retrying.")
+        print("Status Code:", response.status_code)
+        print("Response:", response.text)
         response.raise_for_status() #raises exception for 400, 500 http errors
-        check_for_extra_errors(response)
         print("API response received successfully.")
         return response.json() 
     
@@ -22,7 +35,6 @@ def fetch_data():
         print(f"An error occured: {e}")
         raise  # Re-raise the exception to signal failure
 
-fetch_data()
 
 # def mock_fetch_data():
 #     return {

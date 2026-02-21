@@ -1,4 +1,5 @@
 from api_request import fetch_data
+import json
 import psycopg2
 
 def connect_to_db():
@@ -30,7 +31,7 @@ def create_table(conn):
                 city VARCHAR(100),
                 temperature FLOAT,
                 Weather_descriptions TEXT,
-                Wind_speed FLOAT,
+                aqi JSONB,
                 humidity INT,
                 timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
@@ -47,8 +48,11 @@ create_table(conn)
 def insert_records(conn, data):
     print("Insert weather data into the database...")
     try:
-        breakpoint()
-        weather = data['current']
+       # breakpoint()
+        print(type(data))
+        print(data.keys())
+        print(json.dumps(data, indent=2))
+        weather = data['current'] # why error?
         location = data['location']
         
         cursor = conn.cursor()
@@ -56,26 +60,23 @@ def insert_records(conn, data):
             INSERT INTO dev.raw_weather_data (
             city,
             temperature,
-            weather,
+            Weather_descriptions,
             aqi,
-            localtime,
-            inserted_at,
-            utc_offset
-        ) VALUES (%s, %s, %s, %s, %s, NOW(), %s)
+            humidity
+        ) VALUES (%s, %s, %s, %s, %s)
         """, (
         location['name'],
         weather['temperature'],
-        weather['weather_descriptions'][0],  # also fix this
+        weather['weather_descriptions'][0],
         json.dumps(weather['air_quality']),
-        location['localtime'],
-        location['utc_offset']
+        weather['humidity']
     ))
         conn.commit()
         print("Records inserted successfully.")
 
     except psycopg2.Error as e:
         print(f"An error occurred while inserting records: {e}")
-        raise  # Re-raise the exception to signal failure
+        raise
 
 data = fetch_data()
 conn = connect_to_db()
