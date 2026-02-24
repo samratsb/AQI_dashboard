@@ -2,15 +2,18 @@ import requests
 import json
 from datetime import datetime
 from dotenv import load_dotenv
+from pathlib import Path
 import os
 
-load_dotenv("secrets.env") 
+env_path = Path(__file__).resolve().parents[2] / ".env"
+load_dotenv(dotenv_path=env_path)
 
 def fetch_data():
-    print("Fetch Data")
+    print("Fetching Data")
     try:
 
         API_KEY = os.getenv("API_KEY")
+        print("API_KEY =", API_KEY)  # Debug
         if not API_KEY:
             raise ValueError("API_KEY not found in environment")
 

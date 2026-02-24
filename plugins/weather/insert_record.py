@@ -49,10 +49,10 @@ def insert_records(conn, data):
     print("Insert weather data into the database...")
     try:
        # breakpoint()
-        print(type(data))
-        print(data.keys())
-        print(json.dumps(data, indent=2))
-        weather = data['current'] # why error?
+        # print(type(data))
+        # print(data.keys())
+        #print(json.dumps(data, indent=2))
+        weather = data['current']
         location = data['location']
         
         cursor = conn.cursor()
@@ -78,7 +78,19 @@ def insert_records(conn, data):
         print(f"An error occurred while inserting records: {e}")
         raise
 
-data = fetch_data()
-conn = connect_to_db()
-create_table(conn)
-insert_records(conn, data)
+
+def main():
+    try:
+        data = fetch_data()
+        conn = connect_to_db()
+        create_table(conn)
+        insert_records(conn, data)
+        
+    except Exception as e:
+        print(f"an error occured during execution: {e}")
+    finally:
+        if 'conn' in locals():
+            conn.close()
+            print("Database connection is closed.")
+            
+main()

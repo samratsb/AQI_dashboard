@@ -1,4 +1,60 @@
+# ==========================
+# Python
+# ==========================
 __pycache__/
-airflow_env/
-secrets.env
+**/__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+/home/sam/de_project/plugins/weather/__pycache__
 
+# ==========================
+# Virtual Environments
+# ==========================
+airflow_env/
+venv/
+.env/
+.pytest_cache/
+
+
+# ==========================
+# Environment / Secrets
+# ==========================
+secrets.env
+.env
+*.env
+/home/sam/de_project/docker-compose.yaml
+
+# ==========================
+# Airflow
+# ==========================
+logs/
+**/logs/
+airflow-webserver.pid
+airflow-scheduler.pid
+airflow.db
+
+# ==========================
+# Postgres data directory
+# ==========================
+postgres/
+
+# ==========================
+# OS files
+# ==========================
+.DS_Store
+Thumbs.db
+
+# ==========================
+# IDEs
+# ==========================
+.vscode/
+.idea/
+
+# ==========================
+# Misc
+# ==========================
+*.log
+*.pid
+*.sqlite

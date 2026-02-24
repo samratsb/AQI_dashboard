@@ -1,1 +1,55 @@
-/home/sam/de_project/secrets.env
+# ==========================
+# Python cache
+# ==========================
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# ==========================
+# Virtual Environments
+# ==========================
+airflow_env/
+venv/
+.env/
+.pytest_cache/
+
+# ==========================
+# Environment / Secrets
+# ==========================
+secrets.env
+.env
+*.env
+
+# ==========================
+# Airflow
+# ==========================
+logs/
+**/logs/
+airflow-webserver.pid
+airflow-scheduler.pid
+airflow.db
+
+# ==========================
+# Postgres data directory
+# ==========================
+postgres/
+
+# ==========================
+# Docker / OS / IDE
+# ==========================
+.dockerignore
+Dockerfile
+.docker/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ==========================
+# Misc
+# ==========================
+*.log
+*.pid
+*.sqlite
